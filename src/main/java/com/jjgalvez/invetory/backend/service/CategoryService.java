@@ -16,7 +16,12 @@ public class CategoryService {
 	@Autowired private JdbcTemplate jdbcTemplate;
 	
 	public List<Category> getCategories() {
-		String query = "SELECT * FROM categories";
+		String query = "SELECT id, name, description FROM categories";
 		return jdbcTemplate.query(query, Category.getMapper());
+	}
+	
+	public Category getCategory(Long id) {
+		String query = String.format("SELECT id, name, description FROM categories WHERE id=%1$s", id);
+		return jdbcTemplate.queryForObject(query, Category.getMapper());
 	}
 }
